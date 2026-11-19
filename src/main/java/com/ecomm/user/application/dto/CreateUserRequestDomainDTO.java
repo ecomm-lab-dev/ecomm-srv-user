@@ -2,8 +2,9 @@ package com.ecomm.user.application.dto;
 
 import com.ecomm.user.domain.valueobject.Address;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 import org.hibernate.validator.constraints.br.CPF;
 
 import java.time.LocalDate;
@@ -19,10 +20,10 @@ public record CreateUserRequestDomainDTO(
         String socialId,
         @NotBlank
         String phoneNumber,
-        @NotBlank
+        @NotNull(message = "Address is required")
         Address address,
-        @NotBlank(message = "Birth date is required")
-        @Max(value = 10, message = "Birth date must be in the format yyyy-MM-dd")
+        @NotNull(message = "Birth date is required")
+        @Past(message = "Birth date must be in the past")
         LocalDate birthDate) {
 
 }
