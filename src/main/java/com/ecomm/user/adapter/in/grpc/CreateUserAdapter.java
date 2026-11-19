@@ -6,7 +6,6 @@ import com.ecomm.user.domain.exception.InvalidRequestException;
 import com.ecomm.user.domain.valueobject.Address;
 import com.ecomm.user.port.in.CreateUserUseCase;
 import io.grpc.stub.StreamObserver;
-import jakarta.validation.Validator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.grpc.server.service.GrpcService;
@@ -16,7 +15,6 @@ import user.CreateUserResponse;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.stream.Collectors;
 
 @Slf4j
 @GrpcService
