@@ -7,11 +7,13 @@ import com.ecomm.user.port.in.CreateUserUseCase;
 import com.ecomm.user.port.out.UserRepositoryPort;
 import jakarta.validation.Validator;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class CreateUserUseCaseImpl implements CreateUserUseCase {
@@ -23,6 +25,7 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
     @Override
     public User createUser(CreateUserRequestDomainDTO request) {
 
+        log.info("Creating user");
         validate(request);
         String encodedPassword = passwordEncoder.encode(request.password());
 
@@ -35,7 +38,9 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
                 request.address(),
                 request.birthDate()
         );
-        return userRepository.save(user);
+        User savedUser = userRepository.save(user);
+        log.info("User created. userId={}", savedUser.getId());
+        return savedUser;
     }
 
     private void validate(CreateUserRequestDomainDTO command) {
@@ -44,6 +49,7 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
                 .sorted()
                 .collect(Collectors.joining("; "));
         if (!message.isEmpty()) {
+            log.warn("User creation rejected: validation failed. violations={}", message);
             throw new InvalidRequestException(message);
         }
     }

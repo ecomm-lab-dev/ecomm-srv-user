@@ -29,10 +29,11 @@ public class CreateUserAdapter extends CreateUserGrpc.CreateUserImplBase {
     public void createUser(user.CreateUserRequest req, StreamObserver<CreateUserResponse> obs) {
 
         try {
-            log.info("Received createUser request: {}", req);
+            log.info("gRPC createUser received");
             CreateUserRequestDomainDTO command = toCommand(req);
 
             var user = createUserUseCase.createUser(command);
+            log.info("gRPC createUser completed. userId={}", user.getId());
 
             obs.onNext(CreateUserResponse.newBuilder()
                     .setId(user.getId().toString())
