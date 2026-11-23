@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: ${URL}
+    driver-class-name: ${DRIVE}
+    username: ${USERNAME}
+    password: ${PASSWORD}
+    hikari:
+      maximum-pool-size: 40
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+    baseline-version: 0

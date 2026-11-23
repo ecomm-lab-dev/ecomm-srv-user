@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package user;
+
+option java_multiple_files = true;
+
+service CreateUser {
+  rpc CreateUser (CreateUserRequest) returns (CreateUserResponse);
+}
+
+message CreateUserRequest {
+  string name = 1;
+  string email = 2;
+  string password = 3;
+  Address address = 4;
+  string social_id = 5;
+  string phone_number = 6;
+  string birth_date = 7;
+}
+
+message CreateUserResponse {
+  string id = 1;
+  string name = 2;
+  string email = 3;
+  Address address = 4;
+  string social_id = 5;
+  string phone_number = 6;
+  string birth_date = 7;
+}
+
+message Address {
+  string street = 1;
+  string city = 2;
+  int32 number = 3;
+  string state = 4;
+  string zip_code = 5;
+  string country = 6;
+}
